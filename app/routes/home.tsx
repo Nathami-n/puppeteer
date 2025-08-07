@@ -1,6 +1,8 @@
 import { useFetcher } from "react-router";
 import type { Route } from "./+types/home";
 import * as cheerio from "cheerio";
+import { google } from "@ai-sdk/google";
+import { generateText } from "ai";
 
 const scrapingSiteURL = "https://books.toscrape.com";
 export function meta({}: Route.MetaArgs) {
@@ -16,6 +18,7 @@ export const action = async ({}: Route.ActionArgs) => {
   };
 };
 
+const dataOutput = z.
 export const loader = async ({}: Route.LoaderArgs) => {
   const response = await fetch(scrapingSiteURL);
   const html = await response.text();
@@ -29,9 +32,17 @@ export const loader = async ({}: Route.LoaderArgs) => {
       return { title, price };
     })
     .get();
-  return { data: products, llmResponse: [] };
+
+  const { text, reasoningText } = await generateText({
+    model: google("gemini-1.5-flash"),
+    prompt: "What is the sum of the first 10 prime numbers",
+    
+  });
+  return { data: products, llmResponse: text };
 };
-export default function Home({ loaderData: { data } }: Route.ComponentProps) {
+export default function Home({
+  loaderData: { data, llmResponse },
+}: Route.ComponentProps) {
   const fetcher = useFetcher();
 
   return (
@@ -55,6 +66,10 @@ export default function Home({ loaderData: { data } }: Route.ComponentProps) {
         <div>{fetcher.data?.ok && <p>{JSON.stringify(fetcher.data)}</p>}</div>
 
         <div>{JSON.stringify(data, null, 2)}</div>
+
+        <div>
+          {llmResponse}
+        </div>
       </div>
     </div>
   );

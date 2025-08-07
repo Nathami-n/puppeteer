@@ -4,6 +4,7 @@
     "": {
       "name": "puppet",
       "dependencies": {
+        "@ai-sdk/google": "^2.0.3",
         "@react-router/node": "^7.7.1",
         "@react-router/serve": "^7.7.1",
         "ai": "^5.0.8",
@@ -13,6 +14,7 @@
         "react": "^19.1.0",
         "react-dom": "^19.1.0",
         "react-router": "^7.7.1",
+        "zod": "^4.0.15",
       },
       "devDependencies": {
         "@react-router/dev": "^7.7.1",
@@ -29,6 +31,8 @@
   },
   "packages": {
     "@ai-sdk/gateway": ["@ai-sdk/gateway@1.0.4", "", { "dependencies": { "@ai-sdk/provider": "2.0.0", "@ai-sdk/provider-utils": "3.0.1" }, "peerDependencies": { "zod": "^3.25.76 || ^4" } }, "sha512-1roLdgMbFU3Nr4MC97/te7w6OqxsWBkDUkpbCcvxF3jz/ku91WVaJldn/PKU8feMKNyI5W9wnqhbjb1BqbExOQ=="],
+
+    "@ai-sdk/google": ["@ai-sdk/google@2.0.3", "", { "dependencies": { "@ai-sdk/provider": "2.0.0", "@ai-sdk/provider-utils": "3.0.1" }, "peerDependencies": { "zod": "^3.25.76 || ^4" } }, "sha512-rQkY4nQGZnQw6pfftqsGsXXAqkGnl1gYjSbvD8+zyrVg2KAYeJU0NxIaacLWCORNcW+yQ/cqTpK/Uku/SIdEqA=="],
 
     "@ai-sdk/provider": ["@ai-sdk/provider@2.0.0", "", { "dependencies": { "json-schema": "^0.4.0" } }, "sha512-6o7Y2SeO9vFKB8lArHXehNuusnpddKPk7xqL7T2/b+OvXMRIXUO1rR4wcv1hAFUAT9avGZshty3Wlua/XA7TvA=="],
 
