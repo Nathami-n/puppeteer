@@ -5,9 +5,10 @@ import {
   Bento,
   Quote,
   PricingSection,
-  Testimonials
+  Testimonials,
+  FooterSection,
+  Faqs,
 } from "~/features/landing";
-
 
 export default function LandingPage() {
   return (
@@ -23,6 +24,9 @@ export default function LandingPage() {
 
         <PricingSection />
         <Testimonials />
+
+        <Faqs />
+        <FooterSection />
       </section>
     </main>
   );
