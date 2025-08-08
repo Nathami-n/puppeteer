@@ -38,7 +38,11 @@ export function Company() {
       <div className="grid w-full max-w-7xl grid-cols-2 md:grid-cols-4 overflow-hidden border-y border-border items-center justify-center z-20">
         {companyData.map((company) => {
           return (
-            <Link className="group w-full h-28 flex items-center justify-center relative p-4" target="_blank" to={company.href}>
+            <Link
+              className="group w-full h-28 flex items-center justify-center relative p-4 before:absolute before:-left-1 before:bg-border before:w-px before:content-[''] before:h-screen before:top-0 before:z-10 after:content-[''] after:absolute after:bottom-0 after:bg-border after:h-px after:w-screen after:left-0 after:z-10"
+              target="_blank"
+              to={company.href}
+            >
               <div className="transition-all duration-200 [cubic-bezier(0.165, 0.84, 0.44, 1)] translate-y-0 group-hover:-translate-y-4 duration-300 flex items-center justify-center w-full h-full">
                 <House />
               </div>
@@ -50,10 +54,7 @@ export function Company() {
             </Link>
           );
         })}
-        <a
-          className="group w-full h-28 flex items-center justify-center relative p-4 before:absolute before:-left-1 before:top-0 before:z-10 before:h-screen before:w-px before:bg-border before:content-[''] after:absolute after:-top-1 after:left-0 after:z-10 after:h-px after:w-screen after:bg-border after:content-['']"
-          href="#"
-        ></a>
+        
       </div>
     </div>
   );
