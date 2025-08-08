@@ -1,6 +1,6 @@
 import { FileStackIcon, PlayIcon } from "lucide-react";
 import { Link } from "react-router";
-import { HeroVideoDialog } from "./hero-video-dialog";
+import { HeroVideoDialog } from "../../../components/custom/hero-video-dialog";
 
 export function Hero() {
   return (

@@ -42,8 +42,7 @@ export function HomePageHeader() {
           className={cn(
             "mx-auto max-w-7xl rounded-2xl transition-all duration-300 xl:p-0 shadow-none px-7",
             {
-              "border border-border backdrop-blur-lg bg-background/75":
-                scrolled,
+              " border-border backdrop-blur-lg bg-background/75": scrolled,
             }
           )}
         >
@@ -83,7 +82,7 @@ export function HomePageHeader() {
                   </li>
                 ))}
                 <li
-                  className="absolute inset-0 my-1.5 rounded-full bg-accent/60 border border-border"
+                  className="absolute inset-0 my-1.5 rounded-full bg-accent/60 border-border"
                   style={{ left: "8px", width: "68.8594px" }}
                 ></li>
               </ul>

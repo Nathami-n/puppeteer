@@ -54,7 +54,6 @@ export function Company() {
             </Link>
           );
         })}
-        
       </div>
     </div>
   );
