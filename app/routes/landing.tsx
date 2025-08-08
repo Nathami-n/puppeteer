@@ -1,4 +1,4 @@
-import { HomePageHeader } from "~/features/landing";
+import { HomePageHeader, Hero} from "~/features/landing";
 
 export default function LandingPage() {
   return (
@@ -7,11 +7,9 @@ export default function LandingPage() {
       <div className="block w-px h-full border-r border-border absolute top-0 right-6 z-10"></div>
       <HomePageHeader />
 
-      <div className="flex flex-col">
-        {Array.from({ length: 10 }).map((_, index) => (
-          <div key={index} className="w-full h-[400px] bg-red-400/20" />
-        ))}
-      </div>
+      <section className="flex flex-col items-center justify-center divide-y divide-border min-h-screen w-full">
+        <Hero />
+      </section>
     </main>
   );
 }
