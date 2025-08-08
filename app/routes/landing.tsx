@@ -1,4 +1,10 @@
-import { HomePageHeader, Hero, Company, Bento } from "~/features/landing";
+import {
+  HomePageHeader,
+  Hero,
+  Company,
+  Bento,
+  Quote,
+} from "~/features/landing";
 
 export default function LandingPage() {
   return (
@@ -10,6 +16,7 @@ export default function LandingPage() {
         <Hero />
         <Company />
         <Bento />
+        <Quote />
       </section>
     </main>
   );
