@@ -23,15 +23,30 @@ export function HomePageHeader() {
   }, []);
 
   return (
-    <header className={cn(
-        "sticky z-50 flex justify-center transition-all duration-300 md:mx-0 top-4 mx-0"
-    )}>
+    <header
+      className={cn(
+        "sticky z-50 flex justify-center transition-all duration-300 md:mx-0 top-4 mx-0 ",
+        {
+          "top-6": scrolled,
+        }
+      )}
+    >
       <div
-        style={{
-          width: "70rem",
-        }}
+        className={cn(
+          "transition-all duration-500 ease-in-out",
+          "mx-auto",
+          scrolled ? "w-[800px]" : "w-[1120px]"
+        )}
       >
-        <div className="mx-auto max-w-7xl rounded-2xl transition-all duration-300 xl:p-0 shadow-none px-7">
+        <div
+          className={cn(
+            "mx-auto max-w-7xl rounded-2xl transition-all duration-300 xl:p-0 shadow-none px-7",
+            {
+              "border border-border backdrop-blur-lg bg-background/75":
+                scrolled,
+            }
+          )}
+        >
           <div className="flex h-[56px] items-center justify-between p-4">
             <a className="flex items-center gap-3">
               <svg
