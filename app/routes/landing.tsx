@@ -4,6 +4,7 @@ import {
   Company,
   Bento,
   Quote,
+  PricingSection
 } from "~/features/landing";
 
 export default function LandingPage() {
@@ -17,6 +18,8 @@ export default function LandingPage() {
         <Company />
         <Bento />
         <Quote />
+
+        <PricingSection />
       </section>
     </main>
   );
