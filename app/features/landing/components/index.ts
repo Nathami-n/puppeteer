@@ -4,3 +4,4 @@ export * from "./company";
 export * from "./bento";
 export * from "./quote";
 export * from "./pricing-section";
+export * from "./testimonials"
