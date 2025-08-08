@@ -4,6 +4,9 @@ import * as cheerio from "cheerio";
 import { google } from "@ai-sdk/google";
 import { generateObject, generateText } from "ai";
 import { z } from "zod";
+import { Button } from "~/components/ui/button";
+import { Badge } from "~/components/ui/badge";
+import { Switch } from "~/components/ui/switch";
 
 const scrapingSiteURL = "https://books.toscrape.com";
 export function meta({}: Route.MetaArgs) {
@@ -20,40 +23,38 @@ export const action = async ({}: Route.ActionArgs) => {
 };
 
 export const loader = async ({}: Route.LoaderArgs) => {
-  const response = await fetch(scrapingSiteURL);
-  const html = await response.text();
-
-  const $ = cheerio.load(html);
-
-  const products = $(".product_pod")
-    .map((_, el) => {
-      const title = $(el).find("a").attr("title");
-      const price = $(el).find(".price_color").text();
-      return { title, price };
-    })
-    .get();
-
-  const { object } = await generateObject({
-    model: google("gemini-1.5-flash"),
-    prompt: ` This is the html scraped from a site, extract the title and prices of the books
-
-    === HTML===
-    ${html}
-     `,
-    schema: z.object({
-      items: z.array(
-        z.object({
-          title: z.string(),
-          price: z.string(),
-        })
-      ),
-    }),
-  });
-  return { data: products, llmResponse: object.items };
+  // const response = await fetch(scrapingSiteURL);
+  // const html = await response.text();
+  // const $ = cheerio.load(html);
+  // const products = $(".product_pod")
+  //   .map((_, el) => {
+  //     const title = $(el).find("a").attr("title");
+  //     const price = $(el).find(".price_color").text();
+  //     return { title, price };
+  //   })
+  //   .get();
+  // const { object } = await generateObject({
+  //   model: google("gemini-1.5-flash"),
+  //   prompt: ` This is the html scraped from a site, extract the title and prices of the books
+  //   === HTML===
+  //   ${html}
+  //    `,
+  //   schema: z.object({
+  //     items: z.array(
+  //       z.object({
+  //         title: z.string(),
+  //         price: z.string(),
+  //       })
+  //     ),
+  //   }),
+  // });
+  // return { data: products, llmResponse: object.items };
 };
-export default function Home({
-  loaderData: { data, llmResponse },
-}: Route.ComponentProps) {
+export default function Home(
+  {
+    // loaderData: { data, llmResponse },
+  }: Route.ComponentProps
+) {
   const fetcher = useFetcher();
 
   return (
@@ -76,9 +77,17 @@ export default function Home({
         <span>{fetcher.state}</span>
         <div>{fetcher.data?.ok && <p>{JSON.stringify(fetcher.data)}</p>}</div>
 
-        <div>{JSON.stringify(data, null, 2)}</div>
+        {/* <div>{JSON.stringify(data, null, 2)}</div>
 
-        <div>{JSON.stringify(llmResponse, null, 2)}</div>
+        <div>{JSON.stringify(llmResponse, null, 2)}</div> */}
+
+        <Button>Test</Button>
+        <Button variant={"secondary"}>Secondary</Button>
+
+        <Badge>Badge</Badge>
+
+        <Switch />
+        
       </div>
     </div>
   );
