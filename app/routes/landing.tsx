@@ -1,4 +1,4 @@
-import { HomePageHeader, Hero, Company} from "~/features/landing";
+import { HomePageHeader, Hero, Company, Bento} from "~/features/landing";
 
 export default function LandingPage() {
   return (
@@ -10,6 +10,7 @@ export default function LandingPage() {
       <section className="flex flex-col items-center justify-center divide-y divide-border min-h-screen w-full">
         <Hero />
         <Company />
+        <Bento />
       </section>
     </main>
   );
