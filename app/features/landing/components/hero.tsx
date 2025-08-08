@@ -1,4 +1,4 @@
-import { FileStackIcon } from "lucide-react";
+import { FileStackIcon, PlayIcon } from "lucide-react";
 import { Link } from "react-router";
 
 export function Hero() {
@@ -39,7 +39,22 @@ export function Hero() {
           </div>
         </div>
       </div>
-      <div></div>
+      <div className="relative px-6 mt-10">
+        <div className="relative size-full shadow-xl rounded-2xl overflow-hidden">
+          <div className="relative">
+            <div className="group relative cursor-pointer">
+              <div className="w-full aspect-video bg-background rounded-2xl"></div>
+              <div className="absolute isolate inset-0 flex scale-[0.9] items-center justify-center rounded-2xl transition-all duration-200 ease-out group-hover:scale-100">
+                <div className="flex size-28 items-center justify-center rounded-full bg-gradient-to-t from-primary/20 to-[#ACC3F7/15] backdrop-blur-md">
+                  <div className="relative flex size-20 scale-100 items-center justify-center rounded-full bg-gradient-to-t from-primary to-white/10 shadow-md transition-all duration-200 ease-out group-hover:scale-[1.2]">
+                    <PlayIcon className="stroke-primary-foreground" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
