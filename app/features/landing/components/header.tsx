@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { Button } from "~/components/ui/button";
+import { cn } from "~/lib/utils";
 
 const navLinks = [
   { name: "Home", href: "#hero", active: true },
@@ -8,9 +10,22 @@ const navLinks = [
   { name: "Pricing", href: "#pricing" },
 ];
 export function HomePageHeader() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    function onScroll() {
+      setScrolled(window.scrollY > 50);
+    }
+    window.addEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
 
   return (
-    <header className="sticky z-50 flex justify-center transition-all duration-300 md:mx-0 top-4 mx-0">
+    <header className={cn(
+        "sticky z-50 flex justify-center transition-all duration-300 md:mx-0 top-4 mx-0"
+    )}>
       <div
         style={{
           width: "70rem",
