@@ -88,7 +88,10 @@ export function HomePageHeader() {
 
                   <span className="sr-only">Toggle theme</span>
                 </Button>
-                <button className="md:hidden border border-border size-8 rounded-md cursor-pointer flex items-center justify-center">
+                <button
+                  onClick={() => setOpen(true)}
+                  className="md:hidden border border-border size-8 rounded-md cursor-pointer flex items-center justify-center"
+                >
                   <AlignJustify className="size-5" />
                 </button>
               </div>
