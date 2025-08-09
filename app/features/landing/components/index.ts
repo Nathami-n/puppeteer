@@ -7,3 +7,4 @@ export * from "./pricing-section";
 export * from "./testimonials";
 export * from "./footer";
 export * from "./faq-section";
+export * from "./features";

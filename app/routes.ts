@@ -4,6 +4,7 @@ export default [
 
 
     index("routes/landing.tsx"),
-    route("/home", "routes/home.tsx")
+    route("/home", "routes/home.tsx"),
+    route("/onboarding", "routes/onboarding.tsx"),
 
 ] satisfies RouteConfig;

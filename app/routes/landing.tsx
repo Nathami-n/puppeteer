@@ -8,7 +8,9 @@ import {
   Testimonials,
   FooterSection,
   Faqs,
+  // CombinedFeaturedSection 
 } from "~/features/landing";
+
 
 export default function LandingPage() {
   return (
@@ -21,7 +23,7 @@ export default function LandingPage() {
         <Company />
         <Bento />
         <Quote />
-
+        {/* <CombinedFeaturedSection /> */}
         <PricingSection />
         <Testimonials />
 
