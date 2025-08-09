@@ -51,9 +51,9 @@ const GoogleAnalyticsIcon = (props: React.SVGProps<SVGSVGElement>) => (
 export function FooterSection() {
   return (
     <Footer
-      className="mt-20 w-full pb-0"
+      className="mt-20 w-full md:px-10 pb-0 "
       brand={{
-        name: "webtics",
+        name: "CrawliQ",
         description: "Track and monitor your website traffic.",
       }}
       socialLinks={[
