@@ -11,4 +11,3 @@ const serverEnvSchema = z.object({
 const serverEnv = serverEnvSchema.parse(cleanEnv(import.meta.env));
 
 export const { NODE_ENV } = serverEnv;
-
