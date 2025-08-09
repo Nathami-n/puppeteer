@@ -54,7 +54,7 @@ export function FooterSection() {
       className="mt-20 w-full md:px-10 pb-0 "
       brand={{
         name: "CrawliQ",
-        description: "Track and monitor your website traffic.",
+        description: "Go beyond scraping with AI.",
       }}
       socialLinks={[
         {
@@ -132,7 +132,7 @@ export function FooterSection() {
           ],
         },
       ]}
-      copyright="webtics Inc. © 2024"
+      copyright="CrawliQ Inc. © 2024"
     />
   );
 }
