@@ -34,3 +34,5 @@ export const paginatedResponseSchema = z.object({
 export type APiResponse<T = unknown> = Omit<z.infer<typeof apiResponseSchema>, "data"> & { data?: T };
 
 export type PaginatedResponse<T> = Omit<z.infer<typeof paginatedResponseSchema>, "items"> & { items: T[] };
+
+export type PaginationOptions = z.infer<typeof paginationSchema>;
