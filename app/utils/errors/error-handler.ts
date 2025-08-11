@@ -1,6 +1,7 @@
-
 import { ZodError } from "zod";
+import { logger } from "~/config/logging/logger";
 import type { APiResponse } from "~/lib/zod";
+
 
 export interface ValidationError {
     field: string;
@@ -17,6 +18,7 @@ export class AppError extends Error {
     }
 };
 
+
 export function createApiResponse<T>(
     data?: T,
     error?: string,
@@ -31,5 +33,23 @@ export function createApiResponse<T>(
         timestamp: new Date().toISOString(),
         ...(validationErrors && { validationErrors }),
     }
+}
 
+export function handleError(error: unknown): APiResponse {
+    logger.error(error, "API Error");
+
+    if (error instanceof ZodError) {
+        const validationErrors: ValidationError[] = error.issues.map((issue) => ({
+            field: issue.path[0].toString(),
+            code: issue.code,
+            message: issue.message
+        }));
+
+        return createApiResponse(
+            undefined,
+            "Validation Failed",
+            "Please check your input and try again",
+            validationErrors
+        )
+    }
 }
