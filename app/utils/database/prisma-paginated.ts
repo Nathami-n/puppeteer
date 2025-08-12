@@ -104,5 +104,18 @@ export class PrismaQueryBuilder<TModel, TWhereInput = any> {
             queryOptions,
             this.searchableFields
         )
+    };
+
+    async findWithPagination(
+        where: TWhereInput,
+        options: PaginationOptions = { sortBy: "createdAt", sortOrder: "desc" },
+        additionalOptions: Omit<PrismaQueryOptions<TWhereInput>, "where"> = {}
+    ): Promise<TModel[] | PaginatedResponse<TModel>> {
+        return paginateQuery<TModel, TWhereInput>(
+            this.model,
+            options,
+            { ...additionalOptions, where },
+            this.searchableFields
+        )
     }
 }
