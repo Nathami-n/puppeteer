@@ -1,3 +1,4 @@
+import { Icon } from "@iconify/react";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Badge } from "~/components/ui/badge";
 import {
@@ -15,7 +16,6 @@ import {
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 import { cn } from "~/lib/utils";
-import { Icon } from "@iconify/react";
 
 const MENU_ITEMS = {
   status: [

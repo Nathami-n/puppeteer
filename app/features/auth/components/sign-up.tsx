@@ -1,14 +1,18 @@
+import { Eye, EyeClosed } from "@solar-icons/react/ssr";
+import { useState } from "react";
 import { Form, href, Link } from "react-router";
 import { Logo } from "~/components/custom/logo";
 import { Button } from "~/components/ui/button";
-import RandomUsers from "./random-users";
-import { Separator } from "~/components/ui/separator";
 import { Input, InputError, InputField } from "~/components/ui/input";
+import { Separator } from "~/components/ui/separator";
+import RandomUsers from "./random-users";
 
 export const SignUpComponent = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   return (
     <Form>
-      <div className="relative z-10 w-full max-w-sm rounded-3xl  shadow-2xl p-8 flex flex-col items-center">
+      <div className="relative z-10 bg-white w-full max-w-sm rounded-3xl  shadow-2xl p-8 flex flex-col items-center">
         <div>
           <Logo
             className="text-primary"
@@ -24,7 +28,45 @@ export const SignUpComponent = () => {
           <div className="w-full flex flex-col gap-3">
             <div>
               <InputField className="relative">
-                <Input />
+                <Input placeholder="Email" />
+              </InputField>
+              <InputError>error</InputError>
+            </div>
+            <div>
+              <InputField className="relative">
+                <Input placeholder="Password" />
+                {showPassword ? (
+                  <EyeClosed
+                    weight="LineDuotone"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
+                    onClick={() => setShowPassword(!showPassword)}
+                  />
+                ) : (
+                  <Eye
+                    className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
+                    onClick={() => setShowPassword(!showPassword)}
+                    weight="LineDuotone"
+                  />
+                )}
+              </InputField>
+              <InputError>error</InputError>
+            </div>
+            <div>
+              <InputField className="relative">
+                <Input placeholder="Confirm password" />
+                {showConfirmPassword ? (
+                  <EyeClosed
+                    weight="LineDuotone"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  />
+                ) : (
+                  <Eye
+                    weight="LineDuotone"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  />
+                )}
               </InputField>
               <InputError>error</InputError>
             </div>

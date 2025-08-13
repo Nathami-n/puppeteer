@@ -1,10 +1,9 @@
-
 export default function RandomUsers() {
   return (
     <div className="relative z-10 flex flex-col items-center text-center">
       <p className="text-muted-foreground text-sm mb-2">
-        Join <span className="font-medium">thousands</span> of developers who
-        are already using HextaUI.
+        Join <span className="font-medium">thousands</span> of users who are
+        already using Crawl<span className="text-primary">i</span>Q.
       </p>
       <div className="flex">
         <img
