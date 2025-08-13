@@ -17,13 +17,18 @@ import type { Route } from "../../layouts/+types/dashboard";
 import { Suspense } from "react";
 import { Await } from "react-router";
 
-export function loader() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve("Hello, world!");
-    }, 1000);
-  });
-}
+export const loader = async () => {
+  return Response.json(
+    {
+      ok: true,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+};
 
 export default function Page({ loaderData }) {
   // const { data, refetch } = useTest();
@@ -58,9 +63,9 @@ export default function Page({ loaderData }) {
           <h1>Dashboard</h1>
 
           <h1>My Component</h1>
-          <Suspense fallback={<p>Loading...</p>}>
+          {/* <Suspense fallback={<p>Loading...</p>}>
             <Await resolve={loaderData}>{(data) => <p>{data}</p>}</Await>
-          </Suspense>
+          </Suspense> */}
         </div>
       </SidebarInset>
     </SidebarProvider>
