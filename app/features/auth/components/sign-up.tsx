@@ -7,9 +7,12 @@ import { Input, InputError, InputField } from "~/components/ui/input";
 import { Separator } from "~/components/ui/separator";
 import RandomUsers from "./random-users";
 
+
+
 export const SignUpComponent = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   return (
     <Form>
       <div className="relative z-10 bg-white w-full max-w-sm rounded-3xl  shadow-2xl p-8 flex flex-col items-center">
