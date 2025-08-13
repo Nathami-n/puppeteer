@@ -16,23 +16,17 @@ import {
 import type { Route } from "../../layouts/+types/dashboard";
 import { Suspense } from "react";
 import { Await } from "react-router";
+import { getSession } from "~/middleware/test";
 
-export const loader = async () => {
-  return Response.json(
-    {
-      ok: true,
-    },
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+export const loader = async ({ context }) => {
+  const data = getSession(context);
+  return { data };
 };
 
 export default function Page({ loaderData }) {
   // const { data, refetch } = useTest();
 
+  console.log("loaderData", loaderData.data);
   return (
     <SidebarProvider>
       <AppSidebar />

@@ -3,6 +3,7 @@ import { Outlet } from "react-router";
 
 
 export const loader = async () => {
+ 
   return {
     ok: true
   }
