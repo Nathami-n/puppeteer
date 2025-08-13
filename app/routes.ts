@@ -7,15 +7,22 @@ export default [
     route("/onboarding", "routes/onboarding/onboarding.tsx"),
 
     // DASHBOARD ROUTES:
-    layout("./layouts/dashboard.tsx", [
+    layout("./layouts/dashboard/dashboard.tsx", [
         ...prefix("dashboard", [
             index("./routes/dashboard/index.tsx")
         ])
     ]),
-    
+
+    // AUTH LAYOUT:
+    layout("./layouts/auth/auth.tsx", [
+        route("/sign-in", "routes/auth/sign-in.tsx"),
+        route("/sign-up", "routes/auth/sign-up.tsx")
+    ]),
+
     // RESOURCE ROUTES:
     ...prefix("api", [
-        route("/test", "routes/api/test.ts")
+        route("/test", "routes/api/test.ts"),
+        route("/auth/*", "routes/api/auth.ts")
     ])
 
 ] satisfies RouteConfig;
