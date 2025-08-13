@@ -58,13 +58,17 @@ export const SignInComponent = () => {
           <hr className="opacity-10" />
           <div>
             <button
+              type="button"
               onClick={handleSignIn}
               className="w-full bg-white/10 text-white font-medium px-5 py-3 rounded-full shadow hover:bg-white/20 transition mb-3  text-sm"
             >
               Sign in
             </button>
             {/* Google Sign In */}
-            <button className="w-full flex items-center justify-center gap-2 bg-gradient-to-b from-[#232526] to-[#2d2e30] rounded-full px-5 py-3 font-medium text-white shadow hover:brightness-110 transition mb-2 text-sm">
+            <button
+              type="button"
+              className="w-full flex items-center justify-center gap-2 bg-gradient-to-b from-[#232526] to-[#2d2e30] rounded-full px-5 py-3 font-medium text-white shadow hover:brightness-110 transition mb-2 text-sm"
+            >
               <img
                 src="https://www.svgrepo.com/show/475656/google-color.svg"
                 alt="Google"
@@ -118,4 +122,3 @@ export const SignInComponent = () => {
     </div>
   );
 };
-
