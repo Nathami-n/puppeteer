@@ -8,10 +8,8 @@ export const sessionMiddleware: unstable_MiddlewareFunction = async ({ request, 
     console.log("request params in the test session middleware", request.url);
 
     context.set(sessionContext, { user: "test user" });
-    let response = await next();
 
-
-    return response;
+    return await next();
 }
 
 export function getSession(context: unstable_RouterContextProvider) {
