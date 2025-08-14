@@ -10,14 +10,27 @@ export function generateRandomUserName(email: string) {
 export async function authenticateUserWithEmailAndPassword(
 	data: SignupUserPayload,
 ) {
-	return await auth.api.signUpEmail({
-		body: {
-			email: data.email,
-			password: data.password,
-			name: generateRandomUserName(data.email),
-			callbackURL: href("/sign-in"),
-            
-		},
-		asResponse: true
-	});
+	try {
+		await auth.api.signUpEmail({
+			body: {
+				email: data.email,
+				password: data.password,
+				name: generateRandomUserName(data.email),
+				callbackURL: href("/sign-in"),
+			},
+		});
+
+		return {
+			success: true,
+			error: null,
+		};
+	} catch (error) {
+		return {
+			success: false,
+			error:
+				error instanceof Error
+					? error.message
+					: "Something went wrong please try again later",
+		};
+	}
 }

@@ -15,16 +15,15 @@ export const action = async ({ request }: Route.ActionArgs) => {
     return { errors, defaultValues };
   }
 
-  const response = await authenticateUserWithEmailAndPassword(data);
-  if (response.ok) {
+  const { success, error } = await authenticateUserWithEmailAndPassword(data);
+  if (success) {
     return redirect(href("/sign-in"));
   }
 
-  const error = await response.json();
   return {
     errors: {
       custom: {
-        message: error.message,
+        message: error,
       },
     },
   };

@@ -18,16 +18,15 @@ export const action = async ({ request }: Route.ActionArgs) => {
     return { errors, defaultValues };
   }
 
-  const response = await loginUserWithEmailAndPassword(data);
-  if (response.ok) {
+  const { success, error } = await loginUserWithEmailAndPassword(data);
+  if (success) {
     return redirect(href("/dashboard"));
   }
 
-  const error = await response.json();
   return {
     errors: {
       custom: {
-        message: error.message,
+        message: error,
       },
     },
   };
