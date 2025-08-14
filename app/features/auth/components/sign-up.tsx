@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Eye, EyeClosed } from "@solar-icons/react/ssr";
+import { Eye, EyeClosed, Star2 } from "@solar-icons/react/ssr";
 import { useState } from "react";
-import { Form, href, Link } from "react-router";
+import { Form, href, Link, useNavigation } from "react-router";
 import { useRemixForm } from "remix-hook-form";
 import { Logo } from "~/components/custom/logo";
 import { Button } from "~/components/ui/button";
@@ -9,12 +9,18 @@ import { Input, InputError, InputField } from "~/components/ui/input";
 import { Separator } from "~/components/ui/separator";
 import { signUpSchema } from "../zod";
 import RandomUsers from "./random-users";
+import { toast } from "sonner";
+import { authenticateUserWithGoogle } from "../services/auth/client";
 
 export const resolver = zodResolver(signUpSchema);
 
 export const SignUpComponent = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
+  const { state } = useNavigation();
+
+  const isLoading = state !== "idle";
 
   const {
     handleSubmit,
@@ -29,6 +35,18 @@ export const SignUpComponent = () => {
     },
     mode: "onSubmit",
   });
+
+  const handleGoogle = async () => {
+    setGoogleLoading(true);
+    try {
+      await authenticateUserWithGoogle();
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong");
+    } finally {
+      setGoogleLoading(false);
+    }
+  };
 
   return (
     <div className="flex flex-col">
@@ -112,14 +130,23 @@ export const SignUpComponent = () => {
             </div>
             <Separator className="my-2" />
             <Button
+              disabled={isLoading}
               type="submit"
               className="w-full bg-primary hover:bg-primary/90 text-white cursor-pointer"
             >
-              Sign up
+              {isLoading ? (
+                <Star2 className="animate-spin size-6" weight="LineDuotone" />
+              ) : (
+                "Sign up"
+              )}
             </Button>
           </Form>
-
-          <Button className="gap-2 bg-gradient-to-b cursor-pointer from-[#232526] to-[#2d2e30] font-medium text-white shadow hover:brightness-110 transition text-sm">
+          <Button
+            type="button"
+            onClick={handleGoogle}
+            disabled={isLoading || googleLoading}
+            className="gap-2 bg-gradient-to-b cursor-pointer from-[#232526] to-[#2d2e30] font-medium text-white shadow hover:brightness-110 transition text-sm"
+          >
             <img
               src="/icons/google-color.svg"
               alt="Google"
@@ -130,7 +157,7 @@ export const SignUpComponent = () => {
           <div className="w-full text-center mt-2">
             <span className="text-xs text-muted-foreground">
               Already have an account?{" "}
-              <Link to={href("/sign-up")} className="underline">
+              <Link to={href("/sign-in")} className="underline">
                 Sign in!
               </Link>
             </span>
