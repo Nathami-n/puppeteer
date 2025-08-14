@@ -12,8 +12,8 @@
     "db:migrate": "prisma migrate dev",
     "db:push": "prisma db push",
     "db:reset": "prisma migrate reset",
-    "db:up": "docker compose up -d db",
-    "db:down": "docker compose down db"
+    "db:up": "docker compose up",
+    "db:down": "docker compose down"
   },
   "dependencies": {
     "@ai-sdk/google": "^2.0.3",
