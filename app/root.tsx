@@ -10,6 +10,7 @@ import {
 import type { Route } from "./+types/root";
 import "./app.css";
 import { sessionMiddleware } from "./middleware/test";
+import { GlobalContextProviderComponent } from "./providers/globalProviders";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -43,7 +44,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <GlobalContextProviderComponent>
+      <Outlet />
+    </GlobalContextProviderComponent>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
@@ -74,7 +79,5 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
     </main>
   );
 }
-
-
 
 export const unstable_middleware = [sessionMiddleware];
