@@ -9,7 +9,7 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
-import { sessionMiddleware } from "./middleware/test";
+import { sessionMiddleware } from "./middleware/auth-check";
 import { GlobalContextProviderComponent } from "./providers/globalProviders";
 
 export const links: Route.LinksFunction = () => [
