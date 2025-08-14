@@ -1,12 +1,9 @@
-import { getValidatedFormData } from "remix-hook-form";
-import {
-  resolver,
-  SignUpComponent,
-  type SignupUserPayload,
-} from "~/features/auth";
-import type { Route } from "./+types/sign-in";
-import { authenticateUserWithEmailAndPassword } from "~/features/auth/services/auth/server";
 import { href, redirect } from "react-router";
+import { getValidatedFormData } from "remix-hook-form";
+import { SignUpComponent, type SignupUserPayload } from "~/features/auth";
+import { resolver } from "~/features/auth/components/sign-up";
+import { authenticateUserWithEmailAndPassword } from "~/features/auth/services/auth/server";
+import type { Route } from "./+types/sign-in";
 
 export const action = async ({ request }: Route.ActionArgs) => {
   const {
@@ -23,7 +20,14 @@ export const action = async ({ request }: Route.ActionArgs) => {
     return redirect(href("/sign-in"));
   }
 
-  return response;
+  const error = await response.json();
+  return {
+    errors: {
+      custom: {
+        message: error.message,
+      },
+    },
+  };
 };
 export default function SignUpPage() {
   return <SignUpComponent />;

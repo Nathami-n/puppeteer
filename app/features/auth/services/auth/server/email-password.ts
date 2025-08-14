@@ -2,7 +2,7 @@ import { href } from "react-router";
 import type { SignupUserPayload } from "~/features/auth/zod";
 import { auth } from "~/lib/auth.server";
 
-function generateRandomUserName(email: string) {
+export function generateRandomUserName(email: string) {
 	const randomIndex = Math.floor(Math.random() * email.length);
 
 	return email.slice(0, randomIndex);
@@ -18,6 +18,6 @@ export async function authenticateUserWithEmailAndPassword(
 			callbackURL: href("/sign-in"),
             
 		},
-		asResponse: true,
+		asResponse: true
 	});
 }

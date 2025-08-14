@@ -19,6 +19,7 @@ export const signUpSchema = z
 					/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
 				return regex.test(value);
 			}, "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"),
+		custom: z.string().optional(),
 	})
 	.refine((data) => data.password === data.confirmPassword, {
 		message: "Passwords do not match",
@@ -35,6 +36,7 @@ export const loginSchema = z.object({
 				/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
 			return regex.test(value);
 		}, "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"),
+	custom: z.string().optional(),
 });
 
 export type SignupUserPayload = z.infer<typeof signUpSchema>;

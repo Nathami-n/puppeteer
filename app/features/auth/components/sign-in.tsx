@@ -1,123 +1,147 @@
-import * as React from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Eye, EyeClosed, Star2 } from "@solar-icons/react/ssr";
+import { useState } from "react";
+import { Form, href, Link, useNavigation } from "react-router";
+import { useRemixForm } from "remix-hook-form";
+import { toast } from "sonner";
+import { Logo } from "~/components/custom/logo";
+import { Button } from "~/components/ui/button";
+import { Input, InputError, InputField } from "~/components/ui/input";
+import { Separator } from "~/components/ui/separator";
+import { authenticateUserWithGoogle } from "../services/auth/client";
+import { loginSchema } from "../zod";
+import RandomUsers from "./random-users";
+
+export const resolver = zodResolver(loginSchema);
 
 export const SignInComponent = () => {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [error, setError] = React.useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
+  const { state } = useNavigation();
 
-  const validateEmail = (email: string) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const isLoading = state !== "idle";
+
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useRemixForm({
+    resolver,
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+    mode: "onSubmit",
+  });
+
+  const handleGoogle = async () => {
+    setGoogleLoading(true);
+    try {
+      await authenticateUserWithGoogle();
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong");
+    } finally {
+      setGoogleLoading(false);
+    }
   };
 
-  const handleSignIn = () => {
-    if (!email || !password) {
-      setError("Please enter both email and password.");
-      return;
-    }
-    if (!validateEmail(email)) {
-      setError("Please enter a valid email address.");
-      return;
-    }
-    setError("");
-    alert("Sign in successful! (Demo)");
-  };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[#121212] relative overflow-hidden w-full rounded-xl">
-      {/* Centered glass card */}
-      <div className="relative z-10 w-full max-w-sm rounded-3xl bg-gradient-to-r from-[#ffffff10] to-[#121212] backdrop-blur-sm  shadow-2xl p-8 flex flex-col items-center">
-        {/* Logo */}
-        <div className="flex items-center justify-center w-12 h-12 rounded-full bg-white/20 mb-6 shadow-lg">
-          <img src="http://hextaui.com/logo.svg" />
+    <div className="flex flex-col">
+      <div className="relative z-10 bg-white w-full max-w-sm rounded-3xl  shadow-2xl p-8 flex flex-col items-center">
+        <div>
+          <Logo
+            className="text-primary"
+            containerClassName="flex flex-col items-center"
+            text="CrawliQ"
+          />
         </div>
-        {/* Title */}
-        <h2 className="text-2xl font-semibold text-white mb-6 text-center">
-          HextaUI
-        </h2>
-        {/* Form */}
+        <h1 className="text-3xl md:text-4xl  font-medium tracking-tighter text-center mb-2">
+          Welcome back!
+        </h1>
+
         <div className="flex flex-col w-full gap-4">
-          <div className="w-full flex flex-col gap-3">
-            <input
-              placeholder="Email"
-              type="email"
-              value={email}
-              className="w-full px-5 py-3 rounded-xl  bg-white/10 text-white placeholder-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <input
-              placeholder="Password"
-              type="password"
-              value={password}
-              className="w-full px-5 py-3 rounded-xl  bg-white/10 text-white placeholder-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            {error && (
-              <div className="text-sm text-red-400 text-left">{error}</div>
-            )}
-          </div>
-          <hr className="opacity-10" />
-          <div>
-            <button
-              type="button"
-              onClick={handleSignIn}
-              className="w-full bg-white/10 text-white font-medium px-5 py-3 rounded-full shadow hover:bg-white/20 transition mb-3  text-sm"
-            >
-              Sign in
-            </button>
-            {/* Google Sign In */}
-            <button
-              type="button"
-              className="w-full flex items-center justify-center gap-2 bg-gradient-to-b from-[#232526] to-[#2d2e30] rounded-full px-5 py-3 font-medium text-white shadow hover:brightness-110 transition mb-2 text-sm"
-            >
-              <img
-                src="https://www.svgrepo.com/show/475656/google-color.svg"
-                alt="Google"
-                className="w-5 h-5"
-              />
-              Continue with Google
-            </button>
-            <div className="w-full text-center mt-2">
-              <span className="text-xs text-gray-400">
-                Don&apos;t have an account?{" "}
-                <a
-                  href="#"
-                  className="underline text-white/80 hover:text-white"
-                >
-                  Sign up, it&apos;s free!
-                </a>
-              </span>
+          <Form onSubmit={handleSubmit} method="POST">
+            <div className="w-full flex flex-col gap-3">
+              <div>
+                <InputField className="relative">
+                  <Input placeholder="Email" {...register("email")} />
+                </InputField>
+                {errors.email && (
+                  <InputError>{errors.email.message}</InputError>
+                )}
+              </div>
+              <div>
+                <InputField className="relative">
+                  <Input
+                    placeholder="Password"
+                    {...register("password")}
+                    type={showPassword ? "text" : "password"}
+                  />
+                  {showPassword ? (
+                    <EyeClosed
+                      weight="LineDuotone"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
+                      onClick={() => setShowPassword(!showPassword)}
+                    />
+                  ) : (
+                    <Eye
+                      className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
+                      onClick={() => setShowPassword(!showPassword)}
+                      weight="LineDuotone"
+                    />
+                  )}
+                </InputField>
+                {errors.password && (
+                  <InputError>{errors.password.message}</InputError>
+                )}
+              </div>
             </div>
+            <Separator className="my-2" />
+
+            {errors.custom && (
+              <InputError className="bg-red-50 mb-2 text-red-700 border border-red-200 rounded-lg p-3 text-sm shadow-sm">
+                {errors.custom.message}
+              </InputError>
+            )}
+            <Button
+              disabled={isLoading}
+              type="submit"
+              className="w-full bg-primary hover:bg-primary/90 text-white cursor-pointer"
+            >
+              {isLoading ? (
+                <Star2 className="animate-spin size-6" weight="LineDuotone" />
+              ) : (
+                "Login"
+              )}
+            </Button>
+          </Form>
+          <Button
+            type="button"
+            onClick={handleGoogle}
+            disabled={isLoading || googleLoading}
+            className="gap-2 bg-gradient-to-b cursor-pointer from-[#232526] to-[#2d2e30] font-medium text-white shadow hover:brightness-110 transition text-sm"
+          >
+            <img
+              src="/icons/google-color.svg"
+              alt="Google"
+              className="size-5"
+            />
+            Continue with Google
+          </Button>
+          <div className="w-full text-center mt-2">
+            <span className="text-xs text-muted-foreground">
+              Don't have an account?{" "}
+              <Link to={href("/sign-up")} className="underline">
+                Sign up here!
+              </Link>
+            </span>
           </div>
         </div>
       </div>
-      {/* User count and avatars */}
-      <div className="relative z-10 mt-12 flex flex-col items-center text-center">
-        <p className="text-gray-400 text-sm mb-2">
-          Join <span className="font-medium text-white">thousands</span> of
-          developers who are already using HextaUI.
-        </p>
-        <div className="flex">
-          <img
-            src="https://randomuser.me/api/portraits/men/32.jpg"
-            alt="user"
-            className="w-8 h-8 rounded-full border-2 border-[#181824] object-cover"
-          />
-          <img
-            src="https://randomuser.me/api/portraits/women/44.jpg"
-            alt="user"
-            className="w-8 h-8 rounded-full border-2 border-[#181824] object-cover"
-          />
-          <img
-            src="https://randomuser.me/api/portraits/men/54.jpg"
-            alt="user"
-            className="w-8 h-8 rounded-full border-2 border-[#181824] object-cover"
-          />
-          <img
-            src="https://randomuser.me/api/portraits/women/68.jpg"
-            alt="user"
-            className="w-8 h-8 rounded-full border-2 border-[#181824] object-cover"
-          />
-        </div>
+      <div className="mt-12 ">
+        <RandomUsers />
       </div>
     </div>
   );

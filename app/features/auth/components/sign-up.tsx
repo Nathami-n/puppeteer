@@ -48,6 +48,8 @@ export const SignUpComponent = () => {
     }
   };
 
+  console.log("errors", errors);
+
   return (
     <div className="flex flex-col">
       <div className="relative z-10 bg-white w-full max-w-sm rounded-3xl  shadow-2xl p-8 flex flex-col items-center">
@@ -129,6 +131,12 @@ export const SignUpComponent = () => {
               </div>
             </div>
             <Separator className="my-2" />
+
+            {errors.custom && (
+              <InputError className="bg-red-50 mb-2 text-red-700 border border-red-200 rounded-lg p-3 text-sm shadow-sm">
+                {errors.custom.message}
+              </InputError>
+            )}
             <Button
               disabled={isLoading}
               type="submit"
