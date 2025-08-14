@@ -5,6 +5,8 @@ import {
   type SignupUserPayload,
 } from "~/features/auth";
 import type { Route } from "./+types/sign-in";
+import { authenticateUserWithEmailAndPassword } from "~/features/auth/services/auth/server";
+import { href, redirect } from "react-router";
 
 export const action = async ({ request }: Route.ActionArgs) => {
   const {
@@ -15,8 +17,13 @@ export const action = async ({ request }: Route.ActionArgs) => {
   if (errors) {
     return { errors, defaultValues };
   }
-  console.log(data)
-  return data;
+
+  const response = await authenticateUserWithEmailAndPassword(data);
+  if (response.ok) {
+    return redirect(href("/sign-in"));
+  }
+
+  return response;
 };
 export default function SignUpPage() {
   return <SignUpComponent />;
