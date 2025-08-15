@@ -16,6 +16,26 @@ import {
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 import { cn } from "~/lib/utils";
+import { CustomAvatar } from "./custom-avatar";
+import {
+  Bell,
+  Download,
+  Gift,
+  Help,
+  LetterUnread,
+  Logout2,
+  Settings,
+  SquareTopDown,
+  Star,
+  Star2,
+  StarAngle,
+  Sun,
+  User,
+  UserBlockRounded,
+  UserCheck,
+  UserCircle,
+  UserHeart,
+} from "@solar-icons/react/ssr";
 
 const MENU_ITEMS = {
   status: [
@@ -32,77 +52,70 @@ const MENU_ITEMS = {
   ],
   profile: [
     {
-      icon: "solar:user-circle-line-duotone",
+      icon: UserCircle,
       label: "Your profile",
       action: "profile",
     },
     {
-      icon: "solar:sun-line-duotone",
+      icon: Sun,
       label: "Appearance",
       action: "appearance",
     },
     {
-      icon: "solar:settings-line-duotone",
+      icon: Settings,
       label: "Settings",
       action: "settings",
     },
     {
-      icon: "solar:bell-line-duotone",
+      icon: Bell,
       label: "Notifications",
       action: "notifications",
     },
   ],
   premium: [
     {
-      icon: "solar:star-bold",
+      icon: Star,
       label: "Upgrade to Pro",
       action: "upgrade",
-      iconClass: "text-amber-600",
+      iconClass: "text-amber-500",
+      variant: "BoldDuotone",
       badge: {
         text: "20% off",
         className: "bg-amber-600 text-white text-[11px]",
       },
     },
     {
-      icon: "solar:gift-line-duotone",
+      icon: Gift,
       label: "Referrals",
       action: "referrals",
     },
   ],
   support: [
     {
-      icon: "solar:download-line-duotone",
+      icon: Download,
       label: "Download app",
       action: "download",
     },
     {
-      icon: "solar:letter-unread-line-duotone",
+      icon: LetterUnread,
       label: "What's new?",
       action: "whats-new",
-      rightIcon: "solar:square-top-down-line-duotone",
+      rightIcon: SquareTopDown,
     },
     {
-      icon: "solar:question-circle-line-duotone",
+      icon: Help,
       label: "Get help?",
       action: "help",
-      rightIcon: "solar:square-top-down-line-duotone",
+      rightIcon: SquareTopDown,
     },
   ],
-  account: [
-    {
-      icon: "solar:users-group-rounded-bold-duotone",
-      label: "Switch account",
-      action: "switch",
-      showAvatar: false,
-    },
-    { icon: "solar:logout-2-bold-duotone", label: "Log out", action: "logout" },
-  ],
+  account: [{ icon: Logout2, label: "Log out", action: "logout" }],
 };
 
 export const UserDropdown = ({
   user = {
-    name: "Ayman Echakar",
-    username: "@aymanch-03",
+    name: "Nathan George",
+    username: "@nate-03",
     avatar: "https://avatars.githubusercontent.com/u/126724835?v=4",
     initials: "AE",
     status: "online",
@@ -125,9 +138,9 @@ export const UserDropdown = ({
       onClick={() => onAction(item.action)}
     >
       <span className="flex items-center gap-1.5 font-medium">
-        <Icon
-          icon={item.icon}
-          className={`size-5 ${item.iconClass || "text-gray-500 dark:text-gray-400"}`}
+        <item.icon
+          className={`size-5 ${item.iconClass || "text-muted-foreground"}`}
+          weight={item.variant || "LineDuotone"}
         />
         {item.label}
       </span>
@@ -137,16 +150,14 @@ export const UserDropdown = ({
         </Badge>
       )}
       {item.rightIcon && (
-        <Icon
-          icon={item.rightIcon}
-          className="size-4 text-gray-500 dark:text-gray-400"
-        />
+        <item.rightIcon className="size-4 text-muted-foreground" />
       )}
       {item.showAvatar && (
-        <Avatar className="cursor-pointer size-6 shadow border border-white dark:border-gray-700">
-          <AvatarImage src={user.avatar} alt={user.name} />
-          <AvatarFallback>{user.initials}</AvatarFallback>
-        </Avatar>
+        <CustomAvatar
+          icon={UserCheck}
+          avatarClassName="border flex items-center justify-center cursor-pointer"
+          iconClassName="size-5 text-primary"
+        />
       )}
     </DropdownMenuItem>
   );
@@ -164,11 +175,12 @@ export const UserDropdown = ({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Avatar className="cursor-pointer size-10 border border-white dark:border-gray-700">
-          <AvatarImage src={user.avatar} alt={user.name} />
-          <AvatarFallback>{user.initials}</AvatarFallback>
-        </Avatar>
+      <DropdownMenuTrigger>
+        <CustomAvatar
+          icon={UserCheck}
+          avatarClassName="border flex items-center justify-center cursor-pointer"
+          iconClassName="size-5 text-primary"
+        />
       </DropdownMenuTrigger>
 
       <DropdownMenuContent
@@ -178,10 +190,11 @@ export const UserDropdown = ({
         <section className="bg-white dark:bg-gray-100/10 backdrop-blur-lg rounded-2xl p-1 shadow border border-gray-200 dark:border-gray-700/20">
           <div className="flex items-center p-2">
             <div className="flex-1 flex items-center gap-2">
-              <Avatar className="cursor-pointer size-10 border border-white dark:border-gray-700">
-                <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback>{user.initials}</AvatarFallback>
-              </Avatar>
+              <CustomAvatar
+                icon={UserCheck}
+                avatarClassName="border flex items-center justify-center cursor-pointer"
+                iconClassName="size-5 text-primary"
+              />
               <div>
                 <h3 className="font-semibold text-sm text-gray-900 dark:text-gray-100">
                   {user.name}
@@ -195,42 +208,6 @@ export const UserDropdown = ({
               {user.status}
             </Badge>
           </div>
-
-          <DropdownMenuGroup>
-            <DropdownMenuSub>
-              <DropdownMenuSubTrigger className="cursor-pointer p-2 rounded-lg">
-                <span className="flex items-center gap-1.5 font-medium text-gray-500 dark:text-gray-400">
-                  <Icon
-                    icon="solar:smile-circle-line-duotone"
-                    className="size-5 text-gray-500 dark:text-gray-400"
-                  />
-                  Update status
-                </span>
-              </DropdownMenuSubTrigger>
-              <DropdownMenuPortal>
-                <DropdownMenuSubContent className="bg-white dark:bg-white/10 backdrop-blur-lg">
-                  <DropdownMenuRadioGroup
-                    value={selectedStatus}
-                    onValueChange={onStatusChange}
-                  >
-                    {MENU_ITEMS.status.map((status, index) => (
-                      <DropdownMenuRadioItem
-                        className="gap-2"
-                        key={index}
-                        value={status.value}
-                      >
-                        <Icon
-                          icon={status.icon}
-                          className="size-5 text-gray-500 dark:text-gray-400"
-                        />
-                        {status.label}
-                      </DropdownMenuRadioItem>
-                    ))}
-                  </DropdownMenuRadioGroup>
-                </DropdownMenuSubContent>
-              </DropdownMenuPortal>
-            </DropdownMenuSub>
-          </DropdownMenuGroup>
 
           <DropdownMenuSeparator />
           <DropdownMenuGroup>

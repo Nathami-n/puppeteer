@@ -1,6 +1,9 @@
+import { DivWrapper } from "~/components/custom/div-wrapper";
 
 export default function DashboardIndex() {
-  return <div>hello Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, voluptas repellendus consectetur nisi cumque aliquam eveniet obcaecati reprehenderit rerum nihil sunt impedit necessitatibus explicabo quas ipsa corporis nobis qui excepturi!</div>;
+  return <DivWrapper>
+    <div>hello Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, voluptas repellendus consectetur nisi cumque aliquam eveniet obcaecati reprehenderit rerum nihil sunt impedit necessitatibus explicabo quas ipsa corporis nobis qui excepturi!</div>
+  </DivWrapper>;
 }
 
 // function useTest(

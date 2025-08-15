@@ -10,6 +10,7 @@ import {
 } from "../ui/breadcrumb";
 import { Separator } from "../ui/separator";
 import { SidebarTrigger } from "../ui/sidebar";
+import UserDropdown from "./user-dropdown";
 
 export default function DashboardHeader() {
   const location = useLocation();
@@ -20,8 +21,8 @@ export default function DashboardHeader() {
 
   return (
     <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
-      <div className="flex items-center gap-2 px-4">
-        <SidebarTrigger className="-ml-1" />
+      <div className="flex items-center gap-2 px-4 ">
+        <SidebarTrigger className="-ml-1 hidden md:block" />
         <Separator
           orientation="vertical"
           className="mr-2 hidden md:block data-[orientation=vertical]:h-4"
@@ -51,6 +52,9 @@ export default function DashboardHeader() {
             })}
           </BreadcrumbList>
         </Breadcrumb>
+      </div>
+      <div className="ml-auto mr-2">
+        <UserDropdown />
       </div>
     </header>
   );

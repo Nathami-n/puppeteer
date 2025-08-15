@@ -8,7 +8,6 @@ import { getSession, sessionMiddleware } from "~/middleware/auth-check.server";
 export const loader = async ({context}) => {
 const session = getSession(context);
 
-
   return {
     ok: true,
   };
