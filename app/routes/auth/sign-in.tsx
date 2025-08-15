@@ -18,11 +18,12 @@ export const action = async ({ request }: Route.ActionArgs) => {
     return { errors, defaultValues };
   }
 
-  const { success, error } = await loginUserWithEmailAndPassword(data);
+  const { success, error, res } = await loginUserWithEmailAndPassword(data);
   if (success) {
-    return redirect(href("/dashboard"));
+    return redirect(href("/dashboard"), {
+      headers: res?.headers,
+    });
   }
-
   return {
     errors: {
       custom: {

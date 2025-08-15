@@ -1,21 +1,6 @@
-import { AppSidebar } from "~/components/custom/app-sidebar";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "~/components/ui/breadcrumb";
-import { Separator } from "~/components/ui/separator";
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "~/components/ui/sidebar";
 
 export default function DashboardIndex() {
-  return <div>hello</div>;
+  return <div>hello Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, voluptas repellendus consectetur nisi cumque aliquam eveniet obcaecati reprehenderit rerum nihil sunt impedit necessitatibus explicabo quas ipsa corporis nobis qui excepturi!</div>;
 }
 
 // function useTest(

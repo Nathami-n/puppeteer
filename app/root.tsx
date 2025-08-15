@@ -9,7 +9,6 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
-import { sessionMiddleware } from "./middleware/auth-check";
 import { GlobalContextProviderComponent } from "./providers/globalProviders";
 
 export const links: Route.LinksFunction = () => [
@@ -80,4 +79,3 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   );
 }
 
-export const unstable_middleware = [sessionMiddleware];

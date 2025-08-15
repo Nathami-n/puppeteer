@@ -1,35 +1,54 @@
-import { Separator } from "@radix-ui/react-separator";
 import React from "react";
+import { Link, useLocation } from "react-router";
 import {
   Breadcrumb,
-  BreadcrumbList,
   BreadcrumbItem,
   BreadcrumbLink,
-  BreadcrumbSeparator,
+  BreadcrumbList,
   BreadcrumbPage,
+  BreadcrumbSeparator,
 } from "../ui/breadcrumb";
+import { Separator } from "../ui/separator";
 import { SidebarTrigger } from "../ui/sidebar";
 
 export default function DashboardHeader() {
+  const location = useLocation();
+
+  const pathSegments = location.pathname
+    .split("/")
+    .filter((segment) => segment.length > 0);
+
   return (
-    <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 ">
+    <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
       <div className="flex items-center gap-2 px-4">
         <SidebarTrigger className="-ml-1" />
         <Separator
           orientation="vertical"
-          className="mr-2 data-[orientation=vertical]:h-4"
+          className="mr-2 hidden md:block data-[orientation=vertical]:h-4"
         />
-        <Breadcrumb>
+        <Breadcrumb className="hidden md:flex">
           <BreadcrumbList>
-            <BreadcrumbItem className="hidden md:block">
-              <BreadcrumbLink href="#">
-                Building Your Application
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator className="hidden md:block" />
-            <BreadcrumbItem>
-              <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-            </BreadcrumbItem>
+            {pathSegments.map((segment, index) => {
+              const isLast = index === pathSegments.length - 1;
+              const href = `/${pathSegments.slice(0, index + 1).join("/")}`;
+
+              return (
+                <React.Fragment key={href}>
+                  <BreadcrumbItem>
+                    {isLast ? (
+                      <BreadcrumbPage>
+                        {decodeURIComponent(segment)}
+                      </BreadcrumbPage>
+                    ) : (
+                      <BreadcrumbLink asChild>
+                        <Link to={href}>{decodeURIComponent(segment)}</Link>
+                      </BreadcrumbLink>
+                    )}
+                  </BreadcrumbItem>
+                  {!isLast && <BreadcrumbSeparator />}
+                </React.Fragment>
+              );
+            })}
           </BreadcrumbList>
         </Breadcrumb>
       </div>
