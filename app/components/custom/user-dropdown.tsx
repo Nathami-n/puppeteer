@@ -1,22 +1,3 @@
-import { Icon } from "@iconify/react";
-import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
-import { Badge } from "~/components/ui/badge";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuPortal,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
-} from "~/components/ui/dropdown-menu";
-import { cn } from "~/lib/utils";
-import { CustomAvatar } from "./custom-avatar";
 import {
   Bell,
   Download,
@@ -27,15 +8,21 @@ import {
   Settings,
   SquareTopDown,
   Star,
-  Star2,
-  StarAngle,
   Sun,
-  User,
-  UserBlockRounded,
   UserCheck,
   UserCircle,
-  UserHeart,
 } from "@solar-icons/react/ssr";
+import { Badge } from "~/components/ui/badge";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "~/components/ui/dropdown-menu";
+import { cn } from "~/lib/utils";
+import { CustomAvatar } from "./custom-avatar";
 
 const MENU_ITEMS = {
   status: [
@@ -121,10 +108,7 @@ export const UserDropdown = ({
     status: "online",
   },
   onAction = () => {},
-  onStatusChange = () => {},
-  selectedStatus = "online",
   promoDiscount = "20% off",
-  accounts = [],
 }) => {
   const renderMenuItem = (item, index) => (
     <DropdownMenuItem
@@ -162,17 +146,6 @@ export const UserDropdown = ({
     </DropdownMenuItem>
   );
 
-  const getStatusColor = (status) => {
-    const colors = {
-      online:
-        "text-green-600 bg-green-100 border-green-300 dark:text-green-400 dark:bg-green-900/30 dark:border-green-500/50",
-      offline:
-        "text-gray-600 bg-gray-100 border-gray-300 dark:text-gray-400 dark:bg-gray-800 dark:border-gray-600",
-      busy: "text-red-600 bg-red-100 border-red-300 dark:text-red-400 dark:bg-red-900/30 dark:border-red-500/50",
-    };
-    return colors[status.toLowerCase()] || colors.online;
-  };
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -203,7 +176,7 @@ export const UserDropdown = ({
               </div>
             </div>
             <Badge
-              className={`${getStatusColor(user.status)} border-[0.5px] text-[11px] rounded-sm capitalize`}
+              className={`text-green-400 bg-green-500/10 border-green-500/50 border-[0.5px] text-[11px] rounded-sm capitalize`}
             >
               {user.status}
             </Badge>
