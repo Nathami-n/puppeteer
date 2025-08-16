@@ -1,10 +1,11 @@
 import { createRequestHandler } from "@react-router/express";
 import express from "express";
+import http from "node:http";
 import { unstable_RouterContextProvider } from "react-router";
 import { sessionContext } from "~/context/session";
-import { auth } from "~/lib/auth.server";
+import { initializeSocketServer } from "./socket/init-socket";
 
-export const app = express();
+const app = express();
 function getLoadContext() {
 	const context = new unstable_RouterContextProvider();
 
@@ -12,17 +13,9 @@ function getLoadContext() {
 
 	return context;
 }
+const server = http.createServer(app);
 
-app.use("/testing", (req, res) => {
-	const session = auth.api.getSession({
-		headers: req.headers,
-	});
-  console.log("headers", req.headers);
-  req.user = session.user;
-	res.send({
-		user: session,
-	});
-});
+initializeSocketServer(server);
 
 app.use(
 	createRequestHandler({
@@ -31,4 +24,4 @@ app.use(
 	}),
 );
 
-
+export { app, server };

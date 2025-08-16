@@ -1,14 +1,26 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { DivWrapper } from "~/components/custom/div-wrapper";
 import { useSocket } from "~/providers/socket-io-provider";
 
 export default function DashboardIndex() {
   const { socket } = useSocket();
+  const [text, setText] = useState("");
+  const [prompt, setPrompt] = useState("");
 
+  const startStream = () => {
+    setText("");
+    if (!socket) return;
+    socket.emit("start-stream", prompt);
+  };
+  
   useEffect(() => {
     socket?.on("welcome", (data) => {
       console.log("Received:", data);
       socket.emit("echo", { message: data });
+    });
+
+    socket?.on("stream-chunk", (chunk: string) => {
+      setText((prev) => prev + chunk);
     });
 
     const interval = setInterval(() => {
@@ -19,7 +31,18 @@ export default function DashboardIndex() {
     return () => clearInterval(interval);
   }, [socket]);
 
-  return <DivWrapper>Dash</DivWrapper>;
+  return (
+    <DivWrapper>
+      <input
+        type="text"
+        value={prompt}
+        onChange={(e) => setPrompt(e.target.value)}
+        placeholder="Enter a prompt..."
+      />
+      <button onClick={startStream}>Start Streaming</button>
+      <div style={{ whiteSpace: "pre-wrap", marginTop: "1rem" }}>{text}</div>
+    </DivWrapper>
+  );
 }
 
 // function useTest(
