@@ -1,13 +1,11 @@
-import type { User } from "better-auth";
 import type {
 	unstable_MiddlewareFunction,
 	unstable_RouterContextProvider,
 } from "react-router";
-import { href, redirect, unstable_createContext } from "react-router";
+import { href, redirect } from "react-router";
 import { logger } from "~/config/logging/logger";
+import { sessionContext } from "~/context/session";
 import { auth } from "~/lib/auth.server";
-
-const sessionContext = unstable_createContext<{ user: User }>();
 
 export const sessionMiddleware: unstable_MiddlewareFunction = async (
 	{ request, context },

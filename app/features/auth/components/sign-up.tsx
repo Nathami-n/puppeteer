@@ -12,7 +12,7 @@ import RandomUsers from "./random-users";
 import { toast } from "sonner";
 import { authenticateUserWithGoogle } from "../services/auth/client";
 
-export const resolver = zodResolver(signUpSchema);
+export const sigupResolver = zodResolver(signUpSchema);
 
 export const SignUpComponent = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -27,7 +27,7 @@ export const SignUpComponent = () => {
     register,
     formState: { errors },
   } = useRemixForm({
-    resolver,
+    sigupResolver,
     defaultValues: {
       email: "",
       password: "",
