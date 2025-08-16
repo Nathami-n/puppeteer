@@ -6,22 +6,26 @@ import { sessionContext } from "~/context/session";
 import { initializeSocketServer } from "./socket/init-socket";
 
 const app = express();
+
 function getLoadContext() {
 	const context = new unstable_RouterContextProvider();
-
 	context.set(sessionContext, { user: null });
-
 	return context;
 }
+
+const reactRouterHandler = createRequestHandler({
+	build: () => import("virtual:react-router/server-build"),
+	getLoadContext,
+});
+
+if (process.env.NODE_ENV === "production") {
+	app.use(reactRouterHandler);
+}
+
 const server = http.createServer(app);
 
 initializeSocketServer(server);
 
-app.use(
-	createRequestHandler({
-		build: () => import("virtual:react-router/server-build"),
-		getLoadContext,
-	}),
-);
+export { app, server, initializeSocketServer };
 
-export { app, server };
+export const getReactRouterHandler = () => reactRouterHandler;
