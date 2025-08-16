@@ -18,10 +18,11 @@
       "recommended": true
     }
   },
-
+ 
   "javascript": {
     "formatter": {
-      "quoteStyle": "double"
+      "quoteStyle": "double",
+      "semicolons": "always"
     }
   },
   "assist": {

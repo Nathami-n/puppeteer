@@ -4,6 +4,7 @@ import morgan from "morgan";
 import http from "node:http";
 import { initializeSocketServer } from "./socket/init-socket.js";
 
+import "dotenv/config";
 
 
 const BUILD_PATH = "./build/server/index.js";

@@ -8,8 +8,6 @@ export function initializeSocketServer(server) {
 				methods: ["GET", "POST"],
 			},
 		});
-
-		console.log("starting socket");
         
 		io.on("connection", (socket) => {
 			console.log(`Client connected: ${socket.id}`);

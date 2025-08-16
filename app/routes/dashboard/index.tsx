@@ -1,9 +1,25 @@
+import { useEffect } from "react";
 import { DivWrapper } from "~/components/custom/div-wrapper";
+import { useSocket } from "~/providers/socket-io-provider";
 
 export default function DashboardIndex() {
-  return <DivWrapper>
-    <div>hello Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, voluptas repellendus consectetur nisi cumque aliquam eveniet obcaecati reprehenderit rerum nihil sunt impedit necessitatibus explicabo quas ipsa corporis nobis qui excepturi!</div>
-  </DivWrapper>;
+  const { socket } = useSocket();
+
+  useEffect(() => {
+    socket?.on("welcome", (data) => {
+      console.log("Received:", data);
+      socket.emit("echo", { message: data });
+    });
+
+    const interval = setInterval(() => {
+      const message = Math.floor(Math.random() * 100);
+      socket?.emit("message", { message });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [socket]);
+
+  return <DivWrapper>Dash</DivWrapper>;
 }
 
 // function useTest(
